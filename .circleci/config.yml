@@ -1,0 +1,30 @@
+jobs:
+  build:
+    docker:
+      - image: cypress/browsers:chrome69
+    steps:
+      - checkout
+      - run: node --version
+      - restore_cache:
+          name: Restore Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache
+      - run:
+          name: Build
+          command: yarn tsc
+      - run: cd test/test-graphql-app && npm i
+      - run: yarn test-app:build
+      - run:
+          background: true
+          name: Serve test app
+          command: yarn test-app:serve
+      - run: npx wait-on http://localhost:3000
+      - run: yarn cypress:run
