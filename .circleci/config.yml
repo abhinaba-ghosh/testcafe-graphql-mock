@@ -1,25 +1,25 @@
+version: 2
 jobs:
   build:
     docker:
-      - image: cypress/browsers:chrome69
+      - image: circleci/node:10.14-browsers
+
+    working_directory: ~/repo
+
     steps:
       - checkout
-      - run: node --version
       - restore_cache:
-          name: Restore Cache
           keys:
-            - yarn-packages-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install Dependencies
-          command: yarn install --frozen-lockfile
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+
+      - run: yarn install
+
       - save_cache:
-          name: Save Cache
-          key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.cache
-      - run:
-          name: Build
-          command: yarn tsc
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
       - run: cd test/test-graphql-app && npm i
       - run: yarn test-app:build
       - run:
@@ -27,4 +27,4 @@ jobs:
           name: Serve test app
           command: yarn test-app:serve
       - run: npx wait-on http://localhost:3000
-      - run: yarn cypress:run
+      - run: yarn test

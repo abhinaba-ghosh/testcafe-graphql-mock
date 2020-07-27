@@ -1,39 +1,6 @@
-import { mockGraphQL, mockit } from '../index';
-import { buildSchema, graphqlSync, introspectionQuery } from 'graphql';
-import { Selector } from 'testcafe';
-
-const schema = `
-type User {
-  id: Int!
-  name: String!
-  email: String!
-  recipes: [Recipe!]!
-}
-
-type Recipe {
-  id: Int!
-  title: String!
-  ingredients: String!
-  direction: String!
-  user: User!
-}
-
-type Query {
-  user(id: Int!): User
-  allRecipes: [Recipe!]!
-  recipe(id: Int!): Recipe
-}
-
-type Mutation {
-  createUser(name: String!, email: String!, password: String!): User!
-  createRecipe(
-    userId: Int!
-    title: String!
-    ingredients: String!
-    direction: String!
-  ): Recipe!
-}
-`;
+import { mockGraphQL, graphQLSchemaFromFile } from '../dist';
+import { Selector, RequestMock } from 'testcafe';
+import { GraphQLError } from 'graphql';
 
 const mock = {
   Query: () => ({
@@ -45,18 +12,85 @@ const mock = {
   }),
 };
 
-fixture(`Audit Test`)
-  .page('http://localhost:3000/')
-  .beforeEach(() => {
-    mockGraphQL(schema, mock);
-  })
-  .requestHooks(mockit);
+const mockError = {
+  Query: () => ({
+    user: ({ id }) => {
+      throw new GraphQLError('Name is required');
+    },
+  }),
+};
 
-test('user audits webpage with specific thresholds', async (t) => {
+fixture(`GraphQL Mock test`).page('http://localhost:3000/');
+
+test('graphql mock with No delay', async (t) => {
+  const requestMockNoDelay = RequestMock()
+    .onRequestTo({ url: 'http://localhost:3000/graphql', method: 'POST' })
+    .respond(async (req, res) => {
+      await mockGraphQL(
+        {
+          schema: graphQLSchemaFromFile(
+            `${process.cwd()}/test/test-schema.graphql`
+          ),
+          mock,
+        },
+        req,
+        res
+      );
+    });
+
+  await t.addRequestHooks(requestMockNoDelay);
   await t.click(Selector('#GET_USER'));
   await t.expect(Selector('#data').textContent).contains(
     JSON.stringify({
       user: { id: 1, name: 'Name', email: 'Email', __typename: 'User' },
     })
   );
+});
+
+test('graphql mock with specified delay', async (t) => {
+  const requestMockDelay = RequestMock()
+    .onRequestTo({ url: 'http://localhost:3000/graphql', method: 'POST' })
+    .respond(async (req, res) => {
+      await mockGraphQL(
+        {
+          schema: graphQLSchemaFromFile(
+            `${process.cwd()}/test/test-schema.graphql`
+          ),
+          mock,
+          delay: 5000,
+        },
+        req,
+        res
+      );
+    });
+
+  await t.addRequestHooks(requestMockDelay);
+  await t.click(Selector('#GET_USER'));
+  await t.expect(Selector('#data').textContent).contains(
+    JSON.stringify({
+      user: { id: 1, name: 'Name', email: 'Email', __typename: 'User' },
+    })
+  );
+});
+
+test('graphql mock error', async (t) => {
+  const requestMockError = RequestMock()
+    .onRequestTo({ url: 'http://localhost:3000/graphql', method: 'POST' })
+    .respond(async (req, res) => {
+      await mockGraphQL(
+        {
+          schema: graphQLSchemaFromFile(
+            `${process.cwd()}/test/test-schema.graphql`
+          ),
+          mock: mockError,
+        },
+        req,
+        res
+      );
+    });
+  await t.addRequestHooks(requestMockError);
+  await t.click(Selector('#GET_USER'));
+  await t
+    .expect(Selector('#error').textContent)
+    .contains('GraphQL error: Name is required');
 });

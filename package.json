@@ -5,44 +5,36 @@
   "scripts": {
     "dev": "tsc --declarationMap -w",
     "test-app:run": "cd client && SKIP_PREFLIGHT_CHECK=true npm start",
-    "prepublish": "tsc --declarationMap"
+    "test-app:build": "cd ./test/test-graphql-app && SKIP_PREFLIGHT_CHECK=true yarn build",
+    "test-app:serve": "serve -s -l 3000 test/test-graphql-app/build",
+    "prepublish": "tsc --declarationMap",
+    "test": "npx testcafe chrome:headless test/**/*.spec.js"
   },
   "main": "dist",
   "types": "dist/index.d.ts",
   "files": [
     "dist/",
     "src/",
-    "yarn.lock",
     "README.md"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,json,css,md}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
   "author": {
-    "name": "Tim Griesser"
+    "name": "Abhinaba Ghosh <askabhinaba@gmail.com>"
   },
   "dependencies": {
-    "graphql-tag": "^2.10.4",
+    "graphql": "^14.0.2",
     "graphql-tools": "^4.0.3",
-    "tslib": "^1.9.3"
+    "tslib": "^1.9.3",
+    "@types/graphql": "^14.0.3"
   },
   "peerDependencies": {
-    "cypress": "^3.1.3",
     "graphql": "^14.0.2"
   },
   "devDependencies": {
-    "@types/graphql": "^14.0.3",
-    "graphql": "^14.0.2",
     "testcafe": "^1.8.8",
+    "serve": "^11.1.0",
     "ts-loader": "^6.0.4",
-    "typescript": "^3.2.2"
+    "graphql": "^14.0.2",
+    "typescript": "^3.2.2",
+    "wait-on": "^3.3.0"
   }
 }
