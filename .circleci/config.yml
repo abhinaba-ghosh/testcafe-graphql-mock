@@ -20,7 +20,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: cd test/test-graphql-app && npm i
+      - run: cd client && npm i
       - run: yarn test-app:build
       - run:
           background: true
