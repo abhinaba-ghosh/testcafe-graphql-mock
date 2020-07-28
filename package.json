@@ -1,7 +1,7 @@
 {
   "name": "testcafe-graphql-mock",
   "description": "Mock out a GraphQL schema from the client",
-  "version": "0.3.1",
+  "version": "0.1.0",
   "scripts": {
     "dev": "tsc --declarationMap -w",
     "test-app:run": "cd client && SKIP_PREFLIGHT_CHECK=true npm start",
