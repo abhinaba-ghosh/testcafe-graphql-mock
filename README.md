@@ -2,7 +2,7 @@
 
 # testcafe-graphql-mock
 
-[![Build Status](https://circleci.com/gh/abhinaba-ghosh/testacfe-graphql-mock.svg?style=shield&branch-=master)](https://app.circleci.com/pipelines/github/abhinaba-ghosh/testcafe-graphql-mock)
+[![Build Status](https://circleci.com/gh/abhinaba-ghosh/testcafe-graphql-mock.svg?style=shield&branch-=master)](https://app.circleci.com/pipelines/github/abhinaba-ghosh/testcafe-graphql-mock)
 [![NPM release](https://img.shields.io/npm/v/testcafe-graphql-mock.svg 'NPM release')](https://www.npmjs.com/package/testcafe-graphql-mock)
 [![npm](https://img.shields.io/npm/l/graphql-faker.svg)](https://github.com/abhinaba-ghosh/testcafe-graphql-mock/blob/master/LICENSE)
 
@@ -29,7 +29,6 @@ mockGraphQL(options: MockGraphQLOptions, req, res);
 ## Basic Usage
 
 ```js
-
 import { mockGraphQL } from 'testcafe-graphql-mock';
 
 // define the schema
@@ -77,7 +76,7 @@ fixture(`GraphQL Mock test`)
 
 test('test graphql mock data', async (t) => {
   await t.click(Selector('button'));
-  await expect(Selector('div')).contains('Lee Byron);
+  await expect(Selector('div')).contains('Lee Byron');
 });
 ```
 
