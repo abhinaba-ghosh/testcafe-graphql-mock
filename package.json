@@ -8,6 +8,7 @@
     "test-app:build": "cd client && SKIP_PREFLIGHT_CHECK=true yarn build",
     "test-app:serve": "serve -s -l 3000 client/build",
     "prepublish": "tsc --declarationMap",
+    "publish": "npm cache clean --force && npm version patch && npm publish",
     "test": "npx testcafe chrome:headless test/**/*.spec.js"
   },
   "main": "dist",
