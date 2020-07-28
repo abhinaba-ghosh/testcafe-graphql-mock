@@ -18,9 +18,8 @@
     "src/",
     "README.md"
   ],
-  "author": {
-    "name": "Abhinaba Ghosh <askabhinaba@gmail.com>"
-  },
+  "author": "Abhinaba Ghosh <askabhinaba@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "graphql": "^14.0.2",
     "graphql-tools": "^4.0.3",
