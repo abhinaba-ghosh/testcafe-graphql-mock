@@ -1,8 +1,8 @@
-![GraphQL Mocker logo](./logo.png)
+![GraphQL Mocker logo](./docs/logo.png)
 
 # testcafe-graphql-mock
 
-[![Build Status](https://circleci.com/gh/abhinaba-ghosh/testcafe-graphql-mock.svg?style=shield&branch-=master)]
+[![Build Status](https://circleci.com/gh/abhinaba-ghosh/testacfe-graphql-mock.svg?style=shield&branch-=master)](https://app.circleci.com/pipelines/github/abhinaba-ghosh/testcafe-graphql-mock)
 [![NPM release](https://img.shields.io/npm/v/testcafe-graphql-mock.svg 'NPM release')](https://www.npmjs.com/package/testcafe-graphql-mock)
 [![npm](https://img.shields.io/npm/l/graphql-faker.svg)](https://github.com/abhinaba-ghosh/testcafe-graphql-mock/blob/master/LICENSE)
 

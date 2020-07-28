@@ -1,7 +1,7 @@
 {
   "name": "testcafe-graphql-mock",
   "description": "Mock out a GraphQL schema from the client",
-  "version": "0.1.4",
+  "version": "0.0.0",
   "scripts": {
     "dev": "tsc --declarationMap -w",
     "test-app:run": "cd client && SKIP_PREFLIGHT_CHECK=true npm start",
@@ -37,5 +37,13 @@
     "graphql": "^14.0.2",
     "typescript": "^3.2.2",
     "wait-on": "^3.3.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abhinaba-ghosh/testcafe-graphql-mock.git"
+  },
+  "bugs": {
+    "url": "https://github.com/abhinaba-ghosh/testcafe-graphql-mock/issues"
+  },
+  "homepage": "https://github.com/abhinaba-ghosh/testcafe-graphql-mock#readme"
 }
