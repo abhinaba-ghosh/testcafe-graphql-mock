@@ -1,0 +1,5 @@
+.vscode/
+client/
+node_modules/
+package-lock.json
+src/
