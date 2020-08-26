@@ -35,7 +35,7 @@
     "ts-loader": "^6.0.4",
     "graphql": "^14.0.2",
     "typescript": "^3.2.2",
-    "wait-on": "^3.3.0"
+    "wait-on": "^5.2.0"
   },
   "repository": {
     "type": "git",
