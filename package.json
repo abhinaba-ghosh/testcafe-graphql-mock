@@ -22,7 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "graphql": "^14.0.2",
-    "graphql-tools": "^4.0.3",
+    "graphql-tools": "^7.0.0",
     "tslib": "^1.9.3",
     "@types/graphql": "^14.0.3"
   },
