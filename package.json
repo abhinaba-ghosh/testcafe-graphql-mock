@@ -32,7 +32,7 @@
   "devDependencies": {
     "testcafe": "^1.8.8",
     "serve": "^11.1.0",
-    "ts-loader": "^6.0.4",
+    "ts-loader": "^8.0.9",
     "graphql": "^14.0.2",
     "typescript": "^3.2.2",
     "wait-on": "^3.3.0"
