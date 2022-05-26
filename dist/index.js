@@ -4,6 +4,7 @@ exports.graphQLSchemaFromFile = exports.mockGraphQL = void 0;
 var tslib_1 = require("tslib");
 var graphql_tools_1 = require("graphql-tools");
 var graphql_1 = require("graphql");
+var mock_1 = require("@graphql-tools/mock");
 var fs = tslib_1.__importStar(require("fs"));
 var path = tslib_1.__importStar(require("path"));
 /**
@@ -27,7 +28,7 @@ var mockGraphQL = function (options, req, res) { return tslib_1.__awaiter(void 0
                 schema = (0, graphql_tools_1.makeExecutableSchema)({
                     typeDefs: schemaAsSDL(options.schema),
                 });
-                (0, graphql_tools_1.addMockFunctionsToSchema)({
+                (0, mock_1.addMocksToSchema)({
                     schema: schema,
                     mocks: options.mock,
                 });

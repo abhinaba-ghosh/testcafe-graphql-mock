@@ -1,8 +1,8 @@
 import {
-  IMocks,
   makeExecutableSchema,
-  addMockFunctionsToSchema,
 } from 'graphql-tools';
+
+
 import {
   IntrospectionQuery,
   buildClientSchema,
@@ -11,12 +11,14 @@ import {
   GraphQLSchema,
 } from 'graphql';
 
+import { addMocksToSchema, IMocks } from '@graphql-tools/mock'
+
 import * as fs from 'fs';
 import * as path from 'path';
 
 interface MockGraphQLOptions {
+  mock: IMocks,
   schema: string | string[] | IntrospectionQuery;
-  mock: IMocks;
   delay?: number;
 }
 
@@ -47,7 +49,7 @@ export const mockGraphQL = async (
     typeDefs: schemaAsSDL(options.schema),
   });
 
-  addMockFunctionsToSchema({
+  addMocksToSchema({
     schema,
     mocks: options.mock,
   });
