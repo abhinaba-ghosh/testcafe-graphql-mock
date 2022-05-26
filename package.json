@@ -22,20 +22,21 @@
   "license": "MIT",
   "dependencies": {
     "graphql": "^14.0.2",
-    "graphql-tools": "^4.0.3",
-    "tslib": "^1.9.3",
-    "@types/graphql": "^14.0.3"
+    "@graphql-tools/mock": "^8.6.11",
+    "tslib": "^2.4.0",
+    "@types/graphql": "^14.0.3",
+    "graphql-tools": "^8.2.11"
   },
   "peerDependencies": {
     "graphql": "^14.0.2"
   },
   "devDependencies": {
-    "testcafe": "^1.8.8",
-    "serve": "^11.1.0",
-    "ts-loader": "^6.0.4",
-    "graphql": "^14.0.2",
-    "typescript": "^3.2.2",
-    "wait-on": "^3.3.0"
+    "testcafe": "^1.18.4",
+    "serve": "^13.0.2",
+    "ts-loader": "^9.3.0",
+    "graphql": "^16.3.0",
+    "typescript": "^4.6.3",
+    "wait-on": "^6.0.1"
   },
   "repository": {
     "type": "git",
