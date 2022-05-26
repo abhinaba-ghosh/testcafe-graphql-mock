@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.graphQLSchemaFromFile = exports.mockGraphQL = void 0;
 var tslib_1 = require("tslib");
-var graphql_tools_1 = require("graphql-tools");
+var schema_1 = require("@graphql-tools/schema");
 var graphql_1 = require("graphql");
 var mock_1 = require("@graphql-tools/mock");
 var fs = tslib_1.__importStar(require("fs"));
@@ -21,21 +21,22 @@ var wait = function (timeout) { return function (response) {
  * @param res
  */
 var mockGraphQL = function (options, req, res) { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
-    var schema, payload, query, variables, data;
+    var schema, schemaWithMocks, payload, query, variables, data;
     return tslib_1.__generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                schema = (0, graphql_tools_1.makeExecutableSchema)({
+                schema = (0, schema_1.makeExecutableSchema)({
                     typeDefs: schemaAsSDL(options.schema),
                 });
-                (0, mock_1.addMocksToSchema)({
+                schemaWithMocks = (0, mock_1.addMocksToSchema)({
                     schema: schema,
                     mocks: options.mock,
                 });
                 payload = JSON.parse(req.body);
                 query = payload.query, variables = payload.variables;
+                console.log("QUERY", query);
                 return [4 /*yield*/, (0, graphql_1.graphql)({
-                        schema: schema,
+                        schema: schemaWithMocks,
                         source: query,
                         variableValues: variables,
                     })

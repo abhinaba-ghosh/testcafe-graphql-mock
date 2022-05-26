@@ -9,7 +9,7 @@
     "test-app:serve": "serve -s -l 3000 client/build",
     "prerelease": "tsc --declarationMap",
     "release": "npm cache clean --force && npm version patch && npm publish",
-    "test": "npx testcafe chrome:headless test/**/*.spec.js"
+    "test": "npx testcafe chrome test/**/*.spec.js"
   },
   "main": "dist",
   "types": "dist/index.d.ts",
@@ -23,6 +23,8 @@
   "dependencies": {
     "graphql": "^16.3.0",
     "@graphql-tools/mock": "^8.5.1",
+    "@graphql-tools/schema": "^8.3.13",
+    "@graphql-tools/utils": "^8.6.12",
     "tslib": "^2.4.0",
     "@types/graphql": "^14.0.3",
     "graphql-tools": "^8.2.11"

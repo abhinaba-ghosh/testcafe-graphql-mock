@@ -1,6 +1,6 @@
 import {
   makeExecutableSchema,
-} from 'graphql-tools';
+} from '@graphql-tools/schema';
 
 
 import {
@@ -31,8 +31,8 @@ interface GQLRequestPayload {
  * waits for specified time
  * @param timeout
  */
-const wait = (timeout: number) => <T>(response?: T) =>
-  new Promise<T>((resolve) => setTimeout(() => resolve(response), timeout));
+const wait = (timeout: number) => (response?: any) =>
+  new Promise((resolve) => setTimeout(() => resolve(response), timeout));
 
 /**
  * Set response to mocked graphql query
@@ -49,7 +49,7 @@ export const mockGraphQL = async (
     typeDefs: schemaAsSDL(options.schema),
   });
 
-  addMocksToSchema({
+  const schemaWithMocks = addMocksToSchema({
     schema,
     mocks: options.mock,
   });
@@ -58,7 +58,7 @@ export const mockGraphQL = async (
   const { query, variables } = payload;
 
   const data = await graphql({
-    schema,
+    schema: schemaWithMocks,
     source: query,
     variableValues: variables,
   })
