@@ -1,8 +1,8 @@
 import {
-  IMocks,
   makeExecutableSchema,
-  addMockFunctionsToSchema,
-} from 'graphql-tools';
+} from '@graphql-tools/schema';
+
+
 import {
   IntrospectionQuery,
   buildClientSchema,
@@ -11,12 +11,14 @@ import {
   GraphQLSchema,
 } from 'graphql';
 
+import { addMocksToSchema, IMocks } from '@graphql-tools/mock'
+
 import * as fs from 'fs';
 import * as path from 'path';
 
 interface MockGraphQLOptions {
+  mock: IMocks,
   schema: string | string[] | IntrospectionQuery;
-  mock: IMocks;
   delay?: number;
 }
 
@@ -29,8 +31,8 @@ interface GQLRequestPayload {
  * waits for specified time
  * @param timeout
  */
-const wait = (timeout: number) => <T>(response?: T) =>
-  new Promise<T>((resolve) => setTimeout(() => resolve(response), timeout));
+const wait = (timeout: number) => (response?: any) =>
+  new Promise((resolve) => setTimeout(() => resolve(response), timeout));
 
 /**
  * Set response to mocked graphql query
@@ -47,7 +49,7 @@ export const mockGraphQL = async (
     typeDefs: schemaAsSDL(options.schema),
   });
 
-  addMockFunctionsToSchema({
+  const schemaWithMocks = addMocksToSchema({
     schema,
     mocks: options.mock,
   });
@@ -56,7 +58,7 @@ export const mockGraphQL = async (
   const { query, variables } = payload;
 
   const data = await graphql({
-    schema,
+    schema: schemaWithMocks,
     source: query,
     variableValues: variables,
   })

@@ -1,8 +1,8 @@
-import { IMocks } from 'graphql-tools';
 import { IntrospectionQuery } from 'graphql';
+import { IMocks } from '@graphql-tools/mock';
 interface MockGraphQLOptions {
-    schema: string | string[] | IntrospectionQuery;
     mock: IMocks;
+    schema: string | string[] | IntrospectionQuery;
     delay?: number;
 }
 /**

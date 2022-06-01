@@ -4,7 +4,8 @@ import { GraphQLError } from 'graphql';
 
 const mock = {
   Query: () => ({
-    user: ({ id }) => ({
+    user: () => ({
+      __typename: 'User',
       id: 1,
       name: 'Name',
       email: 'Email',
