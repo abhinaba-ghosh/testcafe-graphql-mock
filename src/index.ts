@@ -1,6 +1,6 @@
 import {
   makeExecutableSchema,
-} from '@graphql-tools/schema';
+} from "@graphql-tools/schema";
 
 
 import {
@@ -11,7 +11,7 @@ import {
   GraphQLSchema,
 } from 'graphql';
 
-import { addMocksToSchema, IMocks } from '@graphql-tools/mock'
+import { addMocksToSchema, IMocks } from "@graphql-tools/mock";
 
 import * as fs from 'fs';
 import * as path from 'path';
