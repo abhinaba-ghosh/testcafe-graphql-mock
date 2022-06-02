@@ -26,7 +26,7 @@
     "@graphql-tools/schema": "^8.3.13",
     "@graphql-tools/utils": "^8.6.12",
     "tslib": "^2.4.0",
-    "@types/graphql": "^14.0.3"
+    "@types/graphql": "^14.5.0"
   },
   "peerDependencies": {
     "graphql": "^16.3.0"
