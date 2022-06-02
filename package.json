@@ -26,14 +26,13 @@
     "@graphql-tools/schema": "^8.3.13",
     "@graphql-tools/utils": "^8.6.12",
     "tslib": "^2.4.0",
-    "@types/graphql": "^14.0.3",
-    "graphql-tools": "^8.2.11"
+    "@types/graphql": "^14.0.3"
   },
   "peerDependencies": {
     "graphql": "^16.3.0"
   },
   "devDependencies": {
-    "testcafe": "^1.18.4",
+    "testcafe": "^1.19.0",
     "serve": "^13.0.2",
     "ts-loader": "^9.3.0",
     "graphql": "^16.3.0",
