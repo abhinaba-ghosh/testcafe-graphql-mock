@@ -1,5 +1,5 @@
-import { IntrospectionQuery } from 'graphql';
-import { IMocks } from '@graphql-tools/mock';
+import { IntrospectionQuery } from "graphql";
+import { IMocks } from "@graphql-tools/mock";
 interface MockGraphQLOptions {
     mock: IMocks;
     schema: string | string[] | IntrospectionQuery;
