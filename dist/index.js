@@ -2,8 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.graphQLSchemaFromFile = exports.mockGraphQL = void 0;
 var tslib_1 = require("tslib");
-var graphql_tools_1 = require("graphql-tools");
+var schema_1 = require("@graphql-tools/schema");
 var graphql_1 = require("graphql");
+var mock_1 = require("@graphql-tools/mock");
 var fs = tslib_1.__importStar(require("fs"));
 var path = tslib_1.__importStar(require("path"));
 /**
@@ -19,22 +20,23 @@ var wait = function (timeout) { return function (response) {
  * @param req
  * @param res
  */
-exports.mockGraphQL = function (options, req, res) { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
-    var schema, payload, query, variables, data;
+var mockGraphQL = function (options, req, res) { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
+    var schema, schemaWithMocks, payload, query, variables, data;
     return tslib_1.__generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                schema = graphql_tools_1.makeExecutableSchema({
+                schema = (0, schema_1.makeExecutableSchema)({
                     typeDefs: schemaAsSDL(options.schema),
                 });
-                graphql_tools_1.addMockFunctionsToSchema({
+                schemaWithMocks = (0, mock_1.addMocksToSchema)({
                     schema: schema,
                     mocks: options.mock,
                 });
                 payload = JSON.parse(req.body);
                 query = payload.query, variables = payload.variables;
-                return [4 /*yield*/, graphql_1.graphql({
-                        schema: schema,
+                console.log("QUERY", query);
+                return [4 /*yield*/, (0, graphql_1.graphql)({
+                        schema: schemaWithMocks,
                         source: query,
                         variableValues: variables,
                     })
@@ -47,13 +49,15 @@ exports.mockGraphQL = function (options, req, res) { return tslib_1.__awaiter(vo
         }
     });
 }); };
+exports.mockGraphQL = mockGraphQL;
 /**
  * Read graphql schema from .graphql file
  * @param filePath
  */
-exports.graphQLSchemaFromFile = function (filePath) {
+var graphQLSchemaFromFile = function (filePath) {
     return fs.readFileSync(path.resolve(filePath), 'utf8');
 };
+exports.graphQLSchemaFromFile = graphQLSchemaFromFile;
 /**
  * Takes the schema either as the full .graphql file (string) or the introspection object.
  * @param schema
@@ -62,5 +66,5 @@ var schemaAsSDL = function (schema) {
     if (typeof schema === 'string' || Array.isArray(schema)) {
         return schema;
     }
-    return graphql_1.printSchema(graphql_1.buildClientSchema(schema));
+    return (0, graphql_1.printSchema)((0, graphql_1.buildClientSchema)(schema));
 };

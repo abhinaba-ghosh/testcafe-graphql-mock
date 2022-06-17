@@ -1,13 +1,14 @@
-import { mockGraphQL, graphQLSchemaFromFile } from '../dist';
-import { Selector, RequestMock } from 'testcafe';
-import { GraphQLError } from 'graphql';
+import { mockGraphQL, graphQLSchemaFromFile } from "../dist";
+import { Selector, RequestMock } from "testcafe";
+import { GraphQLError } from "graphql";
 
 const mock = {
   Query: () => ({
-    user: ({ id }) => ({
+    user: () => ({
+      __typename: "User",
       id: 1,
-      name: 'Name',
-      email: 'Email',
+      name: "Name",
+      email: "Email",
     }),
   }),
 };
